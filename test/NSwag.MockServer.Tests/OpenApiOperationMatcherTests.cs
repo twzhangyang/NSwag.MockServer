@@ -13,7 +13,7 @@ namespace NSwag.MockServer.Tests.swagger
        public void ShouldGetOpenApiOperationByRequestAction()
        {
            //Arrange
-           var document = Reader.Read();
+           var document = OpenAPiDocumentReader.Read();
            var operationMatcher = ServiceProvider.GetService<IOpenApiOperationMatcher>();
            var httpContext = new FakedHttpContext().ModifyRequest(r =>
            {

@@ -13,7 +13,7 @@ namespace NSwag.MockServer.Tests
        public void ShouldGetOpenApiPathItemByUrl()
        {
            //Arrange
-           var document = Reader.Read();
+           var document = OpenAPiDocumentReader.Read();
            var urlMatcher = ServiceProvider.GetService<IOpenApiPathItemMatcher>();
            var httpContext = new FakedHttpContext().ModifyRequest(r =>
            {

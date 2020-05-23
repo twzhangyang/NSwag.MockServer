@@ -13,7 +13,7 @@ namespace NSwag.MockServer.Tests
         public void ShouldTransformToObject()
         {
             //Arrange
-            var document = Reader.Read();
+            var document = OpenAPiDocumentReader.Read();
             var schemaSelector = ServiceProvider.GetService<IOpenApiSchemaSelector>();
             var operationMatcher = ServiceProvider.GetService<IOpenApiOperationMatcher>();
             var transformer = ServiceProvider.GetService<IOpenApiObjectTransformer>();

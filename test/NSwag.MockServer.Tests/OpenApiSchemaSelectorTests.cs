@@ -12,7 +12,7 @@ namespace NSwag.MockServer.Tests
        public void ShouldSelectResponseSchema()
        {
            //Arrange
-           var document = Reader.Read();
+           var document = OpenAPiDocumentReader.Read();
            var schemaSelector = ServiceProvider.GetService<IOpenApiSchemaSelector>();
            var operationMatcher = ServiceProvider.GetService<IOpenApiOperationMatcher>();
            

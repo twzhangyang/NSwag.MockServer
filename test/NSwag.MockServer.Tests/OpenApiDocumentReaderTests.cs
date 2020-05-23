@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using NSwag.MockServer.Services;
 using Xunit;
 
 namespace NSwag.MockServer.Tests
@@ -10,7 +11,7 @@ namespace NSwag.MockServer.Tests
         public void ShouldReadOpenApiDocumentCorrectly()
         {
             //Arrange
-            var reader = ServiceProvider.GetService<OpenApiDocumentReader>();
+            var reader = ServiceProvider.GetService<ConventionalFolderSwaggerDocumentSource>();
             
             //Act
             var document = reader.Read();

@@ -9,7 +9,7 @@ namespace NSwag.MockServer.Tests
 {
     public class TestBase
     {
-        protected OpenApiDocumentReader Reader => ServiceProvider.GetService<OpenApiDocumentReader>();
+        protected ConventionalFolderSwaggerDocumentSource OpenAPiDocumentReader => ServiceProvider.GetService<ConventionalFolderSwaggerDocumentSource>();
         
         protected IServiceProvider ServiceProvider { get; set; }
         
