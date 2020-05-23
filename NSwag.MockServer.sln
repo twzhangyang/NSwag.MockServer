@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{991B40AB-6519-453B-A8FA-9F1EA5158FEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7F6A9D01-270F-4A63-832F-48BA4878FF15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSwag.MockServer", "src\NSwag.MockServer\NSwag.MockServer.csproj", "{868D082E-7614-4EAA-B4F3-C4D46CD95F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NSwag.MockServer.Tests", "test\NSwag.MockServer.Tests\NSwag.MockServer.Tests.csproj", "{0330F59F-8C8A-406F-B70D-D6720F34CBF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{868D082E-7614-4EAA-B4F3-C4D46CD95F20} = {991B40AB-6519-453B-A8FA-9F1EA5158FEC}
+		{0330F59F-8C8A-406F-B70D-D6720F34CBF0} = {7F6A9D01-270F-4A63-832F-48BA4878FF15}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{868D082E-7614-4EAA-B4F3-C4D46CD95F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868D082E-7614-4EAA-B4F3-C4D46CD95F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868D082E-7614-4EAA-B4F3-C4D46CD95F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868D082E-7614-4EAA-B4F3-C4D46CD95F20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0330F59F-8C8A-406F-B70D-D6720F34CBF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0330F59F-8C8A-406F-B70D-D6720F34CBF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0330F59F-8C8A-406F-B70D-D6720F34CBF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0330F59F-8C8A-406F-B70D-D6720F34CBF0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
