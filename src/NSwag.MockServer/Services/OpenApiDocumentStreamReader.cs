@@ -17,6 +17,7 @@ namespace NSwag.MockServer
         {
             _validator = validator;
         }
+
         public OpenApiDocument Read(FileInfo input)
         {
             using Stream stream = input.OpenRead();
@@ -31,16 +32,22 @@ namespace NSwag.MockServer
             {
                 throw new InValidSwaggerException();
             }
-                
+
             return document;
         }
     }
 
-    public class InValidSwaggerException : Exception
+    public class MockServerException : Exception
+    {
+        protected MockServerException(string message) : base(message)
+        {
+        }
+    }
+
+    public class InValidSwaggerException : MockServerException
     {
         public InValidSwaggerException() : base("Incorrect swagger document")
         {
-            
         }
     }
 }

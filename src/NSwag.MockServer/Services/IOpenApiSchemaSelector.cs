@@ -18,7 +18,7 @@ namespace NSwag.MockServer.Services
 
             if (responses.Count == 0)
             {
-                return null;
+                throw new OpenApiSchemaSelectFailedException();
             }
 
             OpenApiMediaType response;
@@ -36,4 +36,12 @@ namespace NSwag.MockServer.Services
             return (OpenApiObject)example;
         }
     }
+    
+    public class OpenApiSchemaSelectFailedException: MockServerException
+    {
+        public OpenApiSchemaSelectFailedException() : base("Can not select api schema")
+        {
+        }
+    }
+
 }

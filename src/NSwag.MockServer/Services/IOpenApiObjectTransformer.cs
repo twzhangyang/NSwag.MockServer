@@ -17,9 +17,9 @@ namespace NSwag.MockServer.Services
         {
             dynamic root = new ExpandoObject();
 
-            foreach (var property in openApiObject)
+            foreach (var (key, value) in openApiObject)
             {
-                TransformRec(property.Key, property.Value, root);
+                TransformRec(key, value, root);
             }
 
             return root;
@@ -40,9 +40,9 @@ namespace NSwag.MockServer.Services
                     }
                     else
                     {
-                        foreach (var leafItem in (OpenApiObject) item)
+                        foreach (var (s, value) in (OpenApiObject) item)
                         {
-                            TransformRec(leafItem.Key, leafItem.Value, p);
+                            TransformRec(s, value, p);
                         }
                     }
 
@@ -52,17 +52,17 @@ namespace NSwag.MockServer.Services
             else if (property.AnyType == AnyType.Object)
             {
                 dynamic p = new ExpandoObject();
-                foreach (var item in (OpenApiObject) property)
+                foreach (var (s, value) in (OpenApiObject) property)
                 {
-                    TransformRec(item.Key, item.Value, p);
+                    TransformRec(s, value, p);
                 }
 
-                ((IDictionary<String, Object>) node).Add(key, p);
+                ((IDictionary<string, object>) node).Add(key, p);
             }
             else
             {
                 var value = ((dynamic) property).Value;
-                ((IDictionary<String, Object>) node).Add(key, value);
+                ((IDictionary<string, object>) node).Add(key, value);
             }
         }
     }

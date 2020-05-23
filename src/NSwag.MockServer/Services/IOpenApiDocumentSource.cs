@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace NSwag.MockServer.Services
 {
-    public interface ISwaggerDocumentSource
+    public interface IOpenApiDocumentSource
     {
         bool IsValid { get; }
         
@@ -13,7 +13,7 @@ namespace NSwag.MockServer.Services
         OpenApiDocument Read();
     }
 
-    public class ConventionalFolderSwaggerDocumentSource : ISwaggerDocumentSource
+    public class ConventionalFolderOpenApiDocumentSource : IOpenApiDocumentSource
     {
         private readonly OpenApiDocumentStreamReader _reader;
 
@@ -23,7 +23,7 @@ namespace NSwag.MockServer.Services
         
         public int Priority => 1;
 
-        public ConventionalFolderSwaggerDocumentSource(OpenApiDocumentStreamReader reader)
+        public ConventionalFolderOpenApiDocumentSource(OpenApiDocumentStreamReader reader)
         {
             _reader = reader;
         }

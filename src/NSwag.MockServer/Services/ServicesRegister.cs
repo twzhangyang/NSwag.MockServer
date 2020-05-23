@@ -13,8 +13,8 @@ namespace NSwag.MockServer.Services
            services.AddScoped<IOpenApiSchemaSelector, OpenApiSchemaSelector>();
            services.AddScoped<IOpenApiObjectTransformer, OpenApiObjectTransformer>();
 
-           services.AddScoped<ISwaggerDocumentSource, ConventionalFolderSwaggerDocumentSource>();
-           services.AddScoped<ConventionalFolderSwaggerDocumentSource>();
+           services.AddScoped<IOpenApiDocumentSource, ConventionalFolderOpenApiDocumentSource>();
+           services.AddScoped<ConventionalFolderOpenApiDocumentSource>();
        } 
     }
 }

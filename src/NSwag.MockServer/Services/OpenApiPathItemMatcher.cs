@@ -23,7 +23,12 @@ namespace NSwag.MockServer.Services
                 .Where(s=>s.Sections.Length ==  requestSections.Count)
                 .FirstOrDefault(x=>Match(requestSections, x.Sections.ToList()));
 
-            return path == null ? null : document.Paths[path.Key];
+            if (path == null)
+            {
+                throw new OpenApiPathItemMatchFailedException();
+            }
+            
+            return document.Paths[path.Key];
         }
 
         private bool Match(List<string> sectionsA, List<string> sectionsB)
@@ -44,6 +49,13 @@ namespace NSwag.MockServer.Services
             }
 
             return true;
+        }
+    }
+
+    public class OpenApiPathItemMatchFailedException : MockServerException
+    {
+        public OpenApiPathItemMatchFailedException() : base("Can not find Api path item")
+        {
         }
     }
 }

@@ -11,7 +11,7 @@ namespace NSwag.MockServer.Tests
         public void ShouldReadOpenApiDocumentCorrectly()
         {
             //Arrange
-            var reader = ServiceProvider.GetService<ConventionalFolderSwaggerDocumentSource>();
+            var reader = ServiceProvider.GetService<ConventionalFolderOpenApiDocumentSource>();
             
             //Act
             var document = reader.Read();

@@ -18,7 +18,12 @@ namespace NSwag.MockServer.Services
             var result = pathItem.Operations
                 .TryGetValue(TranslateRequestMethod(httpContext.Request.Method), out var operation);
 
-            return result ? operation : null;
+            if (!result)
+            {
+                throw new OpenApiOperationMatchFailedException();
+            }
+
+            return operation;
         }
 
         private OperationType TranslateRequestMethod(string method)
@@ -29,6 +34,13 @@ namespace NSwag.MockServer.Services
 
             var type = (OperationType)Enum.Parse(typeof(OperationType), memberInfo.Name);
             return type;
+        }
+        
+        public class OpenApiOperationMatchFailedException: MockServerException
+        {
+            public OpenApiOperationMatchFailedException() : base("Can not find Api operation")
+            {
+            }
         }
     }
 }
