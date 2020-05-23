@@ -38,13 +38,6 @@ namespace NSwag.MockServer
             }
 
             app.UseMiddleware<MockServerMiddleware>();
-
-            app.UseRouting();
-            
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
         }
     }
 }
