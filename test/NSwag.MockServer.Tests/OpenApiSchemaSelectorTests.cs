@@ -9,10 +9,10 @@ namespace NSwag.MockServer.Tests
     public class OpenApiSchemaSelectorTests : TestBase
     {
         [Fact]
-       public void ShouldSelectResponseSchema()
+       public async void ShouldSelectResponseSchema()
        {
            //Arrange
-           var document = OpenAPiDocumentReader.Read();
+           var document = await OpenAPiDocumentReader.Read();
            var schemaSelector = ServiceProvider.GetService<IOpenApiSchemaSelector>();
            var operationMatcher = ServiceProvider.GetService<IOpenApiOperationMatcher>();
            

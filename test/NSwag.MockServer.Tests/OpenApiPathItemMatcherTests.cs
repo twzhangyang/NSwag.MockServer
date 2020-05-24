@@ -10,10 +10,10 @@ namespace NSwag.MockServer.Tests
     public class OpenApiPathItemMatcherTests : TestBase
     {
         [Fact]
-       public void ShouldGetOpenApiPathItemByUrl()
+       public async void ShouldGetOpenApiPathItemByUrl()
        {
            //Arrange
-           var document = OpenAPiDocumentReader.Read();
+           var document = await OpenAPiDocumentReader.Read();
            var urlMatcher = ServiceProvider.GetService<IOpenApiPathItemMatcher>();
            var httpContext = new FakedHttpContext().ModifyRequest(r =>
            {

@@ -10,10 +10,10 @@ namespace NSwag.MockServer.Tests
     public class OpenApiObjectTransformerTests : TestBase
     {
         [Fact]
-        public void ShouldTransformToObject()
+        public async void ShouldTransformToObject()
         {
             //Arrange
-            var document = OpenAPiDocumentReader.Read();
+            var document = await OpenAPiDocumentReader.Read();
             var schemaSelector = ServiceProvider.GetService<IOpenApiSchemaSelector>();
             var operationMatcher = ServiceProvider.GetService<IOpenApiOperationMatcher>();
             var transformer = ServiceProvider.GetService<IOpenApiObjectTransformer>();

@@ -11,7 +11,7 @@
 
 
     <ItemGroup>
-        <Content Update="swagger/swagger.json">
+        <Content Update="swagger\swagger.json">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>

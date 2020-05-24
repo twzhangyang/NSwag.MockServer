@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,26 +27,28 @@ namespace NSwag.MockServer
                 }
             ).Read(stream, out var context);
 
-            if (!_validator.IsValid(document))
+            return !_validator.IsValid(document) ? null : document;
+        }
+    }
+
+    public class OpenApiDocumentStringReader
+    {
+        private readonly IOpenApiDocumentValidator _validator;
+
+        public OpenApiDocumentStringReader(IOpenApiDocumentValidator validator)
+        {
+            _validator = validator;
+        }
+        
+        public OpenApiDocument Read(string text)
+        {
+            var document = new OpenApiStringReader(new OpenApiReaderSettings
             {
-                throw new InValidSwaggerException();
-            }
+                ReferenceResolution = ReferenceResolutionSetting.ResolveLocalReferences,
+                RuleSet = ValidationRuleSet.GetDefaultRuleSet()
+            }).Read(text, out var context);
 
-            return document;
-        }
-    }
-
-    public class MockServerException : Exception
-    {
-        protected MockServerException(string message) : base(message)
-        {
-        }
-    }
-
-    public class InValidSwaggerException : MockServerException
-    {
-        public InValidSwaggerException() : base("Incorrect swagger document")
-        {
+            return !_validator.IsValid(document) ? null : document;
         }
     }
 }

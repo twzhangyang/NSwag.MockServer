@@ -28,8 +28,8 @@ namespace NSwag.MockServer
             IOpenApiSchemaSelector schemaSelector,
             IOpenApiObjectTransformer transformer)
         {
-            _documentCache ??= sources
-                .OrderBy(x => x.Priority)
+            _documentCache ??= await sources
+                .OrderByDescending(x => x.Priority)
                 .FirstOrDefault(x => x.IsValid)
                 ?.Read();
 
