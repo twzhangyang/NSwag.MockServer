@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NSwag.MockServer.Services;
 
@@ -26,7 +24,8 @@ namespace NSwag.MockServer
             IOpenApiPathItemMatcher pathItemMatcher,
             IOpenApiOperationMatcher operationMatcher,
             IOpenApiSchemaSelector schemaSelector,
-            IOpenApiObjectTransformer transformer)
+            IOpenApiObjectTransformer transformer,
+            ILogger<MockServerMiddleware> logger)
         {
             _documentCache ??= await sources
                 .OrderByDescending(x => x.Priority)
@@ -47,8 +46,9 @@ namespace NSwag.MockServer
                 var schema = schemaSelector.Select(operation);
                 o = transformer.Transform(schema);
             }
-            catch (MockServerException)
+            catch (MockServerException e)
             {
+                logger.LogError(e, "Can not get example from swagger according to request");
                 NotFound(context, "Can not get example from swagger according to request");
                 return;
             }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace NSwag.MockServer.Services
@@ -13,6 +14,13 @@ namespace NSwag.MockServer.Services
 
     public class OpenApiPathItemMatcher : IOpenApiPathItemMatcher
     {
+        private readonly ILogger<OpenApiPathItemMatcher> _logger;
+
+        public OpenApiPathItemMatcher(ILogger<OpenApiPathItemMatcher> logger)
+        {
+            _logger = logger;
+        }
+        
         public OpenApiPathItem MatchByRequestUrl(OpenApiDocument document, HttpContext httpContext)
         {
             var requestUrl = httpContext.Request.Path;
@@ -25,6 +33,7 @@ namespace NSwag.MockServer.Services
 
             if (path == null)
             {
+                _logger.LogError($"Can not find open api path item by request url:{requestUrl}");
                 throw new OpenApiPathItemMatchFailedException();
             }
             

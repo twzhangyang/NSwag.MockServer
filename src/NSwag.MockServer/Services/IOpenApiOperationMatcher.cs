@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace NSwag.MockServer.Services
@@ -13,6 +15,13 @@ namespace NSwag.MockServer.Services
 
     public class OpenApiOperationMatcher : IOpenApiOperationMatcher
     {
+        private readonly ILogger<OpenApiOperationMatcher> _logger;
+
+        public OpenApiOperationMatcher(ILogger<OpenApiOperationMatcher> logger)
+        {
+            _logger = logger;
+        }
+        
         public OpenApiOperation MatchByRequestAction(OpenApiPathItem pathItem, HttpContext httpContext)
         {
             var result = pathItem.Operations
@@ -20,6 +29,7 @@ namespace NSwag.MockServer.Services
 
             if (!result)
             {
+                _logger.LogError($"Can not match Open Api Operation by {httpContext.Request.Method}");
                 throw new OpenApiOperationMatchFailedException();
             }
 
