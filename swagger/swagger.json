@@ -1,0 +1,884 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Petstore API",
+    "description": "A simple example ASP.NET Core Web API",
+    "termsOfService": "https://example.com/terms",
+    "contact": {
+      "name": "Yang",
+      "url": "https://twitter.com/",
+      "email": ""
+    },
+    "license": {
+      "name": "Use under LICX",
+      "url": "https://example.com/license"
+    },
+    "version": "v1"
+  },
+  "paths": {
+    "/pet": {
+      "post": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Add a new pet to the store",
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.AddPetResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.AddPetResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.AddPetResponse"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Update an existing pet",
+        "requestBody": {
+          "description": "Pet object that needs to be added to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Pet"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          },
+          "405": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    },
+    "/{petId}": {
+      "delete": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Deletes a pet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Pet id to delete",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "apiKey",
+            "in": "header",
+            "description": "",
+            "schema": {
+              "type": "string",
+              "description": "",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Find pet by ID",
+        "description": "Returns a single pet",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to return",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of pet to return",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Pet"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Pet"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Pet"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Updates a pet in the store with form data",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet that needs to be updated",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of pet that needs to be updated",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Updated name of the pet",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Updated status of the pet",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "name": {
+                  "style": "form"
+                },
+                "status": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/findByStatus": {
+      "get": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Finds Pets by status",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Status values that need to be considered for filter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/findByTags": {
+      "get": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "Finds Pets by tags",
+        "description": "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.",
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Tags to filter by",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tags to filter by"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Petstore.Models.Pet"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/{petId}/uploadImage": {
+      "post": {
+        "tags": [
+          "PetApi"
+        ],
+        "summary": "uploads an image",
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "description": "ID of pet to update",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of pet to update",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "additionalMetadata": {
+                    "type": "string",
+                    "description": "Additional data to pass to server",
+                    "nullable": true
+                  },
+                  "CanRead": {
+                    "type": "boolean"
+                  },
+                  "CanSeek": {
+                    "type": "boolean"
+                  },
+                  "CanTimeout": {
+                    "type": "boolean"
+                  },
+                  "CanWrite": {
+                    "type": "boolean"
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Position": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "ReadTimeout": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "WriteTimeout": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "additionalMetadata": {
+                  "style": "form"
+                },
+                "CanRead": {
+                  "style": "form"
+                },
+                "CanSeek": {
+                  "style": "form"
+                },
+                "CanTimeout": {
+                  "style": "form"
+                },
+                "CanWrite": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Position": {
+                  "style": "form"
+                },
+                "ReadTimeout": {
+                  "style": "form"
+                },
+                "WriteTimeout": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/{orderId}": {
+      "delete": {
+        "tags": [
+          "StoreApi"
+        ],
+        "summary": "Delete purchase order by ID",
+        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of the order that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "ID of the order that needs to be deleted",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "StoreApi"
+        ],
+        "summary": "Find purchase order by ID",
+        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of pet that needs to be fetched",
+            "required": true,
+            "schema": {
+              "maximum": 10,
+              "minimum": 1,
+              "type": "integer",
+              "description": "ID of pet that needs to be fetched",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/store/inventory": {
+      "get": {
+        "tags": [
+          "StoreApi"
+        ],
+        "summary": "Returns pet inventories by status",
+        "description": "Returns a map of status codes to quantities",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/store/order": {
+      "post": {
+        "tags": [
+          "StoreApi"
+        ],
+        "summary": "Place an order for a pet",
+        "requestBody": {
+          "description": "order placed for purchasing the pet",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Order"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Order"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Petstore.Models.Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Petstore.Models.Order"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Order"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Petstore.Models.Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or Sets Id",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or Sets Name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "Petstore.Models.Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or Sets Id",
+            "format": "int64",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or Sets Name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "Petstore.Models.Pet+StatusEnum": {
+        "enum": [
+          "AvailableEnum",
+          "PendingEnum",
+          "SoldEnum"
+        ],
+        "type": "string",
+        "description": "pet status in the store"
+      },
+      "Petstore.Models.Pet": {
+        "required": [
+          "name",
+          "photoUrls"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or Sets Id",
+            "format": "int64",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/Petstore.Models.Category"
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or Sets Name"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Gets or Sets PhotoUrls"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Petstore.Models.Tag"
+            },
+            "description": "Gets or Sets Tags",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Petstore.Models.Pet+StatusEnum"
+          }
+        },
+        "additionalProperties": false,
+        "description": "",
+        "example": {
+          "Id": 123,
+          "Name": "dog",
+          "Status": "AvailableEnum",
+          "Category": {
+            "Id": 1234,
+            "Name": "Animal"
+          },
+          "PhotoUrls": [
+            "www.photo1.com",
+            "www.photo2.com"
+          ],
+          "Tags": [
+            {
+              "Id": 1111,
+              "Name": "tag1"
+            },
+            {
+              "Id": 2222,
+              "Name": "tag2"
+            }
+          ]
+        }
+      },
+      "Petstore.Models.AddPetResponse": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "category": {
+            "$ref": "#/components/schemas/Petstore.Models.Category"
+          },
+          "name": {
+            "type": "string",
+            "description": "Gets or Sets Name"
+          }
+        },
+        "additionalProperties": false,
+        "example": {
+          "Id": 1234,
+          "Name": "Add pet",
+          "Category": {
+            "Id": 1111,
+            "Name": "dog"
+          }
+        }
+      },
+      "Petstore.Models.ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "Gets or Sets Code",
+            "format": "int32",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Gets or Sets Type",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "description": "Gets or Sets Message",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "Petstore.Models.Order+StatusEnum": {
+        "enum": [
+          "PlacedEnum",
+          "ApprovedEnum",
+          "DeliveredEnum"
+        ],
+        "type": "string",
+        "description": "Order Status"
+      },
+      "Petstore.Models.Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Gets or Sets Id",
+            "format": "int64",
+            "nullable": true
+          },
+          "petId": {
+            "type": "integer",
+            "description": "Gets or Sets PetId",
+            "format": "int64",
+            "nullable": true
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Gets or Sets Quantity",
+            "format": "int32",
+            "nullable": true
+          },
+          "shipDate": {
+            "type": "string",
+            "description": "Gets or Sets ShipDate",
+            "format": "date-time",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/Petstore.Models.Order+StatusEnum"
+          },
+          "complete": {
+            "type": "boolean",
+            "description": "Gets or Sets Complete",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      }
+    }
+  }
+}
