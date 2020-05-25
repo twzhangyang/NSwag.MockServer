@@ -23,10 +23,10 @@ namespace NSwag.MockServer.Tests
             //Act
             var operation = operationMatcher.MatchByRequestAction(document.Paths["/pet"], httpContext);
             var schema = schemaSelector.Select(operation);
-            var o = transformer.Transform(schema);
+            var o = transformer.Transform(schema.Item2);
 
             //Assert
-            var str = JsonConvert.SerializeObject(o);
+            var str = await JsonConvert.SerializeObjectAsync(o);
             str.Should().Be("{\"Id\":1234,\"Name\":\"Add pet\",\"Category\":{\"Id\":1111,\"Name\":\"dog\"}}");
         }
     }

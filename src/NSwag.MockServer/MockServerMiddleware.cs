@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -5,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using NSwag.MockServer.Services;
 
@@ -39,12 +41,13 @@ namespace NSwag.MockServer
             }
 
             var o = new object();
+            var schema = new Tuple<int, OpenApiObject>(200, new OpenApiObject());
             try
             {
                 var pathItem = pathItemMatcher.MatchByRequestUrl(_documentCache, context);
                 var operation = operationMatcher.MatchByRequestAction(pathItem, context);
-                var schema = schemaSelector.Select(operation);
-                o = transformer.Transform(schema);
+                schema = schemaSelector.Select(operation);
+                o = transformer.Transform(schema.Item2);
             }
             catch (MockServerException e)
             {
@@ -59,6 +62,7 @@ namespace NSwag.MockServer
                 PropertyNameCaseInsensitive = true
             });
 
+            context.Response.StatusCode = schema.Item1;
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(json);
         }

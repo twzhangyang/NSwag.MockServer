@@ -49,6 +49,7 @@ namespace NSwag.MockServer.Services
 
                 if (sectionB.StartsWith("{") && sectionB.EndsWith("}"))
                 {
+                    continue;
                 }
 
                 if (!sectionA.Equals(sectionB, StringComparison.InvariantCultureIgnoreCase))
