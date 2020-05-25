@@ -18,13 +18,13 @@ Let's say you have already got Open api document(swagger json/yaml) file, whatev
 NSwag.MockServer is a dock image so you can use it by one line command.
 * Setup mock server by Open Api document(swagger json/yaml) url
 ``` docker
-docker run -it -e swaggerUrl="http://*.json" -p 60020:80 nswag.mockserver:v1
+docker run -it -e swaggerUrl="http://*.json" -p 60020:80 richieyangs/nswag.mockserver:v1
 ```
 Then all apis was mocked in http://localhost:60020
 * Setup mock server by Open api document(swagger json) file
 ensure you current folder have a json named `swagger.json`:
 ``` docker
-docker run -it -v $(pwd):/app/swagger -p 60020:80 nswag.mockserver:v1
+docker run -it -v $(pwd):/app/swagger -p 60020:80 richieyangs/nswag.mockserver:v1
 ```
 
 # Enhancement in future
