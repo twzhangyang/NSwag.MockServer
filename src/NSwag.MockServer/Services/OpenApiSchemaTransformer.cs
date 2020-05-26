@@ -15,6 +15,13 @@ namespace NSwag.MockServer.Services
 
     public class OpenApiSchemaTransformer : IOpenApiSchemaTransformer
     {
+        private readonly RandomValueGenerator _valueGenerator;
+
+        public OpenApiSchemaTransformer(RandomValueGenerator valueGenerator)
+        {
+            _valueGenerator = valueGenerator;
+        }
+        
         public OpenApiObject Transform(IDictionary<string, OpenApiSchema> properties)
         {
             var root = new OpenApiObject();
@@ -77,42 +84,42 @@ namespace NSwag.MockServer.Services
 
             if (type == "integer" && format == "int32")
             {
-                return new OpenApiInteger(1);
+                return new OpenApiInteger(_valueGenerator.GenerateInt32());
             }
 
             if (type == "integer" && format == "int64")
             {
-                return new OpenApiLong(1234);
+                return new OpenApiLong(_valueGenerator.GenerateInt64());
             }
 
             if (type == "number" && format == "float")
             {
-                return new OpenApiFloat(123.12f);
+                return new OpenApiFloat(_valueGenerator.GenerateSingle());
             }
 
             if (type == "number" && format == "double")
             {
-                return new OpenApiDouble(123.12d);
+                return new OpenApiDouble(_valueGenerator.GenerateDouble());
             }
 
             if (type == "string" && format == "byte")
             {
-                return new OpenApiByte(Convert.FromBase64String("aGVsbG8="));
+                return new OpenApiByte(_valueGenerator.GenerateByte());
             }
 
             if (type == "string" && format == "binary")
             {
-                return new OpenApiBinary(Encoding.UTF8.GetBytes("abc"));
+                return new OpenApiBinary(Encoding.UTF8.GetBytes(_valueGenerator.GenerateString()));
             }
 
             if (type == "string" && format == "date")
             {
-                return new OpenApiDate(DateTime.Now.Date);
+                return new OpenApiDate(_valueGenerator.GenerateDateTime());
             }
 
             if (type == "string" && format == "date-time")
             {
-                return new OpenApiDateTime(DateTimeOffset.Now);
+                return new OpenApiDateTime(new DateTimeOffset(_valueGenerator.GenerateDateTime()));
             }
 
             if (type == "string" && format == "password")
@@ -127,12 +134,12 @@ namespace NSwag.MockServer.Services
 
             if (type == "string")
             {
-                return new OpenApiString("hello");
+                return new OpenApiString(_valueGenerator.GenerateString());
             }
             
             if (type == "boolean")
             {
-                return new OpenApiBoolean(true);
+                return new OpenApiBoolean(_valueGenerator.GenerateBoolean());
             }
             
             return new OpenApiNull();

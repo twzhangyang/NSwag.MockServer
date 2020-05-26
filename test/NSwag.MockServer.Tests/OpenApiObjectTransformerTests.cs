@@ -35,7 +35,7 @@ namespace NSwag.MockServer.Tests
 
             //Assert
             var str = await JsonConvert.SerializeObjectAsync(o);
-            str.Should().Be("{\"Id\":1234,\"Name\":\"Add pet\",\"Category\":{\"Id\":1111,\"Name\":\"dog\"}}");
+            str.Should().Be("{\"id\":1234,\"name\":\"add pet\",\"category\":{\"id\":1111,\"name\":\"dog\"}}");
         }
         
         [Fact]
