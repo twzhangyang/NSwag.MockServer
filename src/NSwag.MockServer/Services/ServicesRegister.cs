@@ -14,6 +14,7 @@ namespace NSwag.MockServer.Services
            services.AddScoped<IOpenApiOperationMatcher, OpenApiOperationMatcher>();
            services.AddScoped<IOpenApiSchemaSelector, OpenApiSchemaSelector>();
            services.AddScoped<IOpenApiObjectTransformer, OpenApiObjectTransformer>();
+           services.AddScoped<IOpenApiSchemaTransformer, OpenApiSchemaTransformer>();
 
            services.AddScoped<IOpenApiDocumentSource, ConventionalFolderOpenApiDocumentSource>();
            services.AddScoped<IOpenApiDocumentSource, UrlBasedOpenApiDocumentSource>();

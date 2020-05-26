@@ -14,10 +14,12 @@ namespace NSwag.MockServer.Services
     public class OpenApiSchemaSelector : IOpenApiSchemaSelector
     {
         private readonly ILogger<OpenApiSchemaSelector> _logger;
+        private readonly IOpenApiSchemaTransformer _schemaTransformer;
 
-        public OpenApiSchemaSelector(ILogger<OpenApiSchemaSelector> logger)
+        public OpenApiSchemaSelector(ILogger<OpenApiSchemaSelector> logger, IOpenApiSchemaTransformer schemaTransformer)
         {
             _logger = logger;
+            _schemaTransformer = schemaTransformer;
         }
 
         public Tuple<int, OpenApiObject> Select(OpenApiOperation operation)
@@ -50,8 +52,9 @@ namespace NSwag.MockServer.Services
             IOpenApiAny example;
             if (response.Schema.Example == null)
             {
+                var schema = response.Schema.Properties;
                 // Generate response by schema
-                example = new OpenApiObject();
+                example = _schemaTransformer.Transform(schema);
             }
             else
             {

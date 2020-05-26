@@ -48,6 +48,7 @@ namespace NSwag.MockServer.Services
 
                     list.Add(p);
                 }
+                ((IDictionary<string, object>) node).Add(key, list);
             }
             else if (property.AnyType == AnyType.Object)
             {
@@ -58,6 +59,10 @@ namespace NSwag.MockServer.Services
                 }
 
                 ((IDictionary<string, object>) node).Add(key, p);
+            }
+            else if (property.AnyType == AnyType.Null)
+            {
+                ((IDictionary<string, object>) node).Add(key, null);
             }
             else
             {

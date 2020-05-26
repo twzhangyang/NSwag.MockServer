@@ -711,8 +711,7 @@
           "PendingEnum",
           "SoldEnum"
         ],
-        "type": "string",
-        "description": "pet status in the store"
+        "type": "string"
       },
       "Petstore.Models.Pet": {
         "required": [
@@ -723,30 +722,78 @@
         "properties": {
           "id": {
             "type": "integer",
-            "description": "Gets or Sets Id",
             "format": "int64",
             "nullable": true
           },
-          "category": {
-            "$ref": "#/components/schemas/Petstore.Models.Category"
+          "intValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "int64Value": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nullValue": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isDog": {
+            "type": "boolean"
+          },
+          "floatValue": {
+            "type": "number",
+            "format": "float"
+          },
+          "decimalValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "doubleValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "byteValue": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "binaryValue": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          },
+          "dateTimeValue": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dateTimeOffsetValue": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dictionaryValue": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
           },
           "name": {
-            "type": "string",
-            "description": "Gets or Sets Name"
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Petstore.Models.Category"
           },
           "photoUrls": {
             "type": "array",
             "items": {
               "type": "string"
-            },
-            "description": "Gets or Sets PhotoUrls"
+            }
           },
           "tags": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Petstore.Models.Tag"
             },
-            "description": "Gets or Sets Tags",
             "nullable": true
           },
           "status": {
@@ -754,30 +801,7 @@
           }
         },
         "additionalProperties": false,
-        "description": "",
-        "example": {
-          "Id": 123,
-          "Name": "dog",
-          "Status": "AvailableEnum",
-          "Category": {
-            "Id": 1234,
-            "Name": "Animal"
-          },
-          "PhotoUrls": [
-            "www.photo1.com",
-            "www.photo2.com"
-          ],
-          "Tags": [
-            {
-              "Id": 1111,
-              "Name": "tag1"
-            },
-            {
-              "Id": 2222,
-              "Name": "tag2"
-            }
-          ]
-        }
+        "description": ""
       },
       "Petstore.Models.AddPetResponse": {
         "required": [
@@ -800,11 +824,11 @@
         },
         "additionalProperties": false,
         "example": {
-          "Id": 1234,
-          "Name": "Add pet",
-          "Category": {
-            "Id": 1111,
-            "Name": "dog"
+          "id": 1234,
+          "name": "Add pet",
+          "category": {
+            "id": 1111,
+            "name": "dog"
           }
         }
       },
